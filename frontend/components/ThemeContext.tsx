@@ -16,7 +16,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     // Check local storage or system preference
-    const savedTheme = localStorage.getItem("codepilot-theme") as Theme | null;
+    const savedTheme = localStorage.getItem("knowdev-theme") as Theme | null;
     if (savedTheme) {
       setTheme(savedTheme);
       document.documentElement.className = savedTheme;
@@ -32,7 +32,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const toggleTheme = () => {
     const newTheme = theme === "light" ? "dark" : "light";
     setTheme(newTheme);
-    localStorage.setItem("codepilot-theme", newTheme);
+    localStorage.setItem("knowdev-theme", newTheme);
     document.documentElement.className = newTheme;
   };
 

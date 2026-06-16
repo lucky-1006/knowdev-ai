@@ -17,7 +17,7 @@ def get_current_user(
     """
     Dependency to authenticate and retrieve the current user from PostgreSQL.
     If no authentication token is provided in development mode, it gracefully
-    falls back to the default 'codepilot_dev' user to simplify offline testing.
+    falls back to the default 'knowdev_dev' user to simplify offline testing.
     """
     if not token:
         # Development fallback

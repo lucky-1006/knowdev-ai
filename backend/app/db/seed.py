@@ -38,13 +38,13 @@ def seed_db():
             print(f"Seed User already exists (ID: {user.id})")
             
         # 2. Repository
-        repo = db.query(Repository).filter(Repository.url == "https://github.com/codepilot/demo-project").first()
+        repo = db.query(Repository).filter(Repository.url == "https://github.com/knowdev/demo-project").first()
         if not repo:
             print("Creating seed Repository...")
             repo = Repository(
                 user_id=user.id,
                 name="demo-project",
-                url="https://github.com/codepilot/demo-project",
+                url="https://github.com/knowdev/demo-project",
                 health_score=92,
                 code_smells=5,
                 security_issues=1,
@@ -71,7 +71,7 @@ def seed_db():
             doc2 = Document(
                 repository_id=repo.id,
                 file_path="config.py",
-                file_content="import os\nDATABASE_URL = os.getenv('DATABASE_URL', 'postgresql://postgres:password@localhost:5432/codepilot')",
+                file_content="import os\nDATABASE_URL = os.getenv('DATABASE_URL', 'postgresql://postgres:password@localhost:5432/knowdev')",
                 total_chunks=1
             )
             db.add_all([doc1, doc2])
@@ -133,7 +133,7 @@ def seed_db():
             print("Creating seed PRReview findings...")
             review1 = PRReview(
                 repository_id=repo.id,
-                pr_url="https://github.com/codepilot/demo-project/pull/1",
+                pr_url="https://github.com/knowdev/demo-project/pull/1",
                 file_path="main.py",
                 line_number=2,
                 issue_description="Print statement could be replaced with structured logging.",

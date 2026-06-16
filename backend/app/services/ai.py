@@ -162,7 +162,7 @@ def test_health_check():
 """
         else:
             return f"""# Auto-generated script for: "{prompt}"
-# Created via simulated CodePilot AI engine
+# Created via simulated knowDev AI engine
 
 def main():
     print("Executing: {prompt}")

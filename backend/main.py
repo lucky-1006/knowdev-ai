@@ -30,8 +30,8 @@ from app.mcp_server import mcp_server
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
-    title="CodePilot AI API",
-    description="Backend API for CodePilot AI Software Engineering Assistant",
+    title="knowDev AI API",
+    description="Backend API for knowDev AI Software Engineering Assistant",
     version="0.2.1"
 )
 
@@ -60,7 +60,7 @@ app.include_router(search_router)
 def read_root():
     return {
         "status": "online",
-        "message": "Welcome to CodePilot AI API. Modular Backend Setup is active.",
+        "message": "Welcome to knowDev AI API. Modular Backend Setup is active.",
         "database": settings.DATABASE_URL.split(":///")[0],
         "local_inference": settings.LOCAL_INFERENCE
     }

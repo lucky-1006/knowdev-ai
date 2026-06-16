@@ -95,5 +95,5 @@ npm run test:e2e
 ## 5. Development Guidelines & Conventions
 
 * **Typing Checks**: Always use Python type hints (`mypy` compliant) in the backend service. Always run Next.js TypeScript check (`npm run build` or `npx tsc --noEmit`) before proposing pull requests.
-* **Mock Bypass**: When developing offline, NextAuth credentials provider can log in as `developer` or `codepilot_dev`. The backend automatically provision credentials for this user under `ENV_MODE = "development"`.
+* **Mock Bypass**: When developing offline, NextAuth credentials provider can log in as `developer` or `knowdev_dev`. The backend automatically provision credentials for this user under `ENV_MODE = "development"`.
 * **FastMCP Tool Tests**: You can test MCP tools from your terminal. Boot the backend server, and connect an MCP debugging tool (e.g. `@modelcontextprotocol/inspector`) to `http://127.0.0.1:8000/mcp/sse`.

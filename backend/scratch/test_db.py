@@ -15,20 +15,20 @@ def test_connection():
         with engine.connect() as conn:
             print("Successfully connected to default 'postgres' database.")
             
-            # Check if codepilot database exists
-            result = conn.execute(text("SELECT 1 FROM pg_database WHERE datname='codepilot'"))
+            # Check if knowdev database exists
+            result = conn.execute(text("SELECT 1 FROM pg_database WHERE datname='knowdev'"))
             exists = result.scalar() is not None
             if not exists:
-                print("Database 'codepilot' does not exist. Creating...")
-                conn.execute(text("CREATE DATABASE codepilot"))
-                print("Database 'codepilot' created successfully.")
+                print("Database 'knowdev' does not exist. Creating...")
+                conn.execute(text("CREATE DATABASE knowdev"))
+                print("Database 'knowdev' created successfully.")
             else:
-                print("Database 'codepilot' already exists.")
+                print("Database 'knowdev' already exists.")
         
         # Now try to connect to the actual DB
         actual_engine = create_engine(settings.DATABASE_URL)
         with actual_engine.connect() as actual_conn:
-            print("Successfully connected to 'codepilot' database.")
+            print("Successfully connected to 'knowdev' database.")
         
         # Check if tables can be created
         from app.db.base import Base

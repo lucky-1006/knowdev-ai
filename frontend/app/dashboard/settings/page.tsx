@@ -21,7 +21,7 @@ export default function SettingsPage() {
   const [model, setModel] = useState("qwen2.5");
   const [githubToken, setGithubToken] = useState("");
   const [qdrantUrl, setQdrantUrl] = useState("http://localhost:6333");
-  const [postgresUrl, setPostgresUrl] = useState("postgresql://localhost:5432/codepilot");
+  const [postgresUrl, setPostgresUrl] = useState("postgresql://localhost:5432/knowdev");
   const [isSaved, setIsSaved] = useState(false);
 
   const handleSave = (e: React.FormEvent) => {

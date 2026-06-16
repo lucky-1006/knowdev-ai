@@ -87,7 +87,7 @@ After deploying the services, run the following verification checks:
    ```json
    {
      "status": "online",
-     "message": "Welcome to CodePilot AI API. Modular Backend Setup is active."
+     "message": "Welcome to knowDev AI API. Modular Backend Setup is active."
    }
    ```
 2. **Verify CORS**:

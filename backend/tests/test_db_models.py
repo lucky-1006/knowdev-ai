@@ -34,7 +34,7 @@ def test_create_user_and_repo(db_session):
     # 2. Insert new user
     test_user = User(
         username="pytest_db_user",
-        email="pytest_db@codepilot.ai",
+        email="pytest_db@knowdev.ai",
         clerk_id="pytest_user_clerk_11"
     )
     db_session.add(test_user)
@@ -55,7 +55,7 @@ def test_create_user_and_repo(db_session):
     # 4. Assert records are successfully linked and retrieved
     fetched_user = db_session.query(User).filter(User.username == "pytest_db_user").first()
     assert fetched_user is not None
-    assert fetched_user.email == "pytest_db@codepilot.ai"
+    assert fetched_user.email == "pytest_db@knowdev.ai"
     assert len(fetched_user.repositories) == 1
     assert fetched_user.repositories[0].name == "pytest-db-repo"
     

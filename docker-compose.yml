@@ -1,39 +1,39 @@
 services:
   postgres:
     image: postgres:15-alpine
-    container_name: codepilot-postgres-db
+    container_name: knowdev-postgres-db
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: codepilot
+      POSTGRES_DB: knowdev
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
-      - codepilot-network
+      - knowdev-network
     restart: unless-stopped
 
   qdrant:
     image: qdrant/qdrant:latest
-    container_name: codepilot-qdrant-db
+    container_name: knowdev-qdrant-db
     ports:
       - "6333:6333"
       - "6334:6334"
     volumes:
       - qdrant_data:/qdrant/storage
     networks:
-      - codepilot-network
+      - knowdev-network
     restart: unless-stopped
 
   backend:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    container_name: codepilot-backend-api
+    container_name: knowdev-backend-api
     environment:
       ENV_MODE: development
-      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/codepilot
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/knowdev
       QDRANT_HOST: qdrant
       QDRANT_PORT: 6333
       LOCAL_INFERENCE: "false"
@@ -44,24 +44,24 @@ services:
       - postgres
       - qdrant
     networks:
-      - codepilot-network
+      - knowdev-network
     restart: unless-stopped
 
   frontend:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    container_name: codepilot-frontend-ui
+    container_name: knowdev-frontend-ui
     environment:
       NEXTAUTH_URL: http://localhost:3000
       NEXTAUTH_SECRET: nextauth_dev_secret_key_1234567890
-      JWT_SECRET: codepilot_secret_12345_dev
+      JWT_SECRET: knowdev_secret_12345_dev
     ports:
       - "3000:3000"
     depends_on:
       - backend
     networks:
-      - codepilot-network
+      - knowdev-network
     restart: unless-stopped
 
 volumes:
@@ -69,6 +69,6 @@ volumes:
   qdrant_data:
 
 networks:
-  codepilot-network:
-    name: codepilot-network
+  knowdev-network:
+    name: knowdev-network
     driver: bridge

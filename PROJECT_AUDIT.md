@@ -1,6 +1,6 @@
 # knowDev AI - Project Audit Report
 
-This report presents a comprehensive technical audit of the **knowDev AI** codebase (also referred to as *CodePilot AI* in historical backend contexts). It details the current architectural state, analyzes each subsystem, and identifies critical bugs, security vulnerabilities, performance bottlenecks, and refactoring opportunities.
+This report presents a comprehensive technical audit of the **knowDev AI** codebase (also referred to as *knowDev AI* in historical backend contexts). It details the current architectural state, analyzes each subsystem, and identifies critical bugs, security vulnerabilities, performance bottlenecks, and refactoring opportunities.
 
 ---
 
@@ -67,7 +67,7 @@ graph TD
   * `explain_code_snippet`: Explain a code block using the local model.
 
 ### 2.5. Docker & CI/CD
-* **Docker Compose**: Orchestrates PostgreSQL, Qdrant, Backend, and Frontend containers with a private network bridge (`codepilot-network`).
+* **Docker Compose**: Orchestrates PostgreSQL, Qdrant, Backend, and Frontend containers with a private network bridge (`knowdev-network`).
 * **CI/CD**: Performs flake8 syntax linting, runs ESLint on frontend code, tests models/endpoints, compiles Next.js builds, and validates Docker builds.
 
 ---
@@ -85,7 +85,7 @@ graph TD
    * *Resolution*: Remove `unique=True` from `url` column, and add a composite unique constraint on `(user_id, url)`.
 3. **Seeding Credentials Mismatch**:
    * *Location*: `frontend/app/api/auth/[...nextauth]/route.ts` vs. `backend/app/api/deps.py`
-   * *Issue*: NextAuth logs users in as `dev@knowdev.ai` with name `knowdev_dev`. The backend development bypass expects `dev@codepilot.ai` and `codepilot_dev`. This causes the database to dynamically provision duplicate dev users.
+   * *Issue*: NextAuth logs users in as `dev@knowdev.ai` with name `knowdev_dev`. The backend development bypass expects `dev@knowdev.ai` and `knowdev_dev`. This causes the database to dynamically provision duplicate dev users.
    * *Resolution*: Standardize the development credentials across both subsystems to `dev@knowdev.ai` and `knowdev_dev`.
 
 ### 3.2. Security Vulnerabilities
@@ -111,7 +111,7 @@ graph TD
 ---
 
 ## 4. Refactoring & Code Quality Opportunities
-* **Unify Branding**: Clean up residual "CodePilot" names in backend, SQL tables, and CLI logs to present a unified "knowDev AI" brand.
+* **Unify Branding**: Clean up residual "knowDev" names in backend, SQL tables, and CLI logs to present a unified "knowDev AI" brand.
 * **Prune Workspace**:
   * Remove temporary directory `qdrant_test` from root.
   * Prune `CLAUDE.md` and unused configs inside `frontend/`.

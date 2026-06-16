@@ -10,10 +10,10 @@ class Settings:
     ENV_MODE: str = os.getenv("ENV_MODE", "development")
     
     # Database URL
-    DATABASE_URL: str = os.getenv("DATABASE_URL", "sqlite:///./codepilot.db")
+    DATABASE_URL: str = os.getenv("DATABASE_URL", "sqlite:///./knowdev.db")
     
     # JWT Auth settings
-    JWT_SECRET: str = os.getenv("JWT_SECRET", "codepilot_secret_12345_dev")
+    JWT_SECRET: str = os.getenv("JWT_SECRET", "knowdev_secret_12345_dev")
     JWT_ALGORITHM: str = "HS256"
     
     # GitHub Access Token

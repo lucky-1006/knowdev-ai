@@ -150,8 +150,8 @@ Create `.env` inside `backend/` and `.env.local` inside `frontend/`.
 | Key | Type | Description | Default |
 |:---|:---|:---|:---|
 | `ENV_MODE` | String | Environment mode (`development` or `production`) | `development` |
-| `DATABASE_URL` | String | Database connection string | `sqlite:///./codepilot.db` |
-| `JWT_SECRET` | String | Token signing key | `codepilot_secret_12345_dev` |
+| `DATABASE_URL` | String | Database connection string | `sqlite:///./knowdev.db` |
+| `JWT_SECRET` | String | Token signing key | `knowdev_secret_12345_dev` |
 | `GITHUB_TOKEN` | String | GitHub Personal Access Token (for API scans) | *None* |
 | `QDRANT_HOST` | String | Qdrant client host (`memory` or hostname) | `memory` |
 | `LOCAL_INFERENCE`| Boolean| Enables local PyTorch model inference | `false` |
@@ -161,7 +161,7 @@ Create `.env` inside `backend/` and `.env.local` inside `frontend/`.
 |:---|:---|:---|:---|
 | `NEXTAUTH_URL` | String | Application base URL | `http://localhost:3000` |
 | `NEXTAUTH_SECRET`| String | Session encryption secret | `nextauth_dev_secret_key_1234567890` |
-| `JWT_SECRET` | String | Matches the backend JWT secret | `codepilot_secret_12345_dev` |
+| `JWT_SECRET` | String | Matches the backend JWT secret | `knowdev_secret_12345_dev` |
 
 ---
 

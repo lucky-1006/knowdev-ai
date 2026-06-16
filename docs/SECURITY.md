@@ -38,6 +38,6 @@ We will review your submission and respond within **48 hours** to coordinate a f
 When running knowDev AI in production, always follow these rules:
 
 * **Environment Secrets**: Never commit `.env` or `.env.local` files to Git. Set these variables directly in your host container configurations (e.g. Render, Vercel, AWS ECS).
-* **JWT Token Security**: Change the default `JWT_SECRET` (`codepilot_secret_12345_dev`) and `NEXTAUTH_SECRET` immediately in production mode.
+* **JWT Token Security**: Change the default `JWT_SECRET` (`knowdev_secret_12345_dev`) and `NEXTAUTH_SECRET` immediately in production mode.
 * **API Rate Limiting**: Deploy a reverse proxy (such as Nginx, Cloudflare, or AWS API Gateway) to protect backend FastAPI routes from brute-force authentication or rate exhaustion attacks.
 * **Offline Deployment**: To ensure 100% data privacy, deploy knowDev AI inside a private Virtual Private Cloud (VPC) with `LOCAL_INFERENCE=true`.

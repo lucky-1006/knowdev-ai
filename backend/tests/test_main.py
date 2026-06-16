@@ -25,7 +25,7 @@ def test_read_root():
 def test_auth_me_dev_bypass():
     """
     Test that requesting /api/auth/me in development mode without a token
-    gracefully bypasses verification and returns the seed 'codepilot_dev' user.
+    gracefully bypasses verification and returns the seed 'knowdev_dev' user.
     """
     # Force development mode for testing bypass behavior
     original_mode = settings.ENV_MODE

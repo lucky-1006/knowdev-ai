@@ -1,7 +1,7 @@
 from mcp.server.fastmcp import FastMCP
 
 # Initialize the FastMCP server
-mcp_server = FastMCP("CodePilot AI")
+mcp_server = FastMCP("knowDev AI")
 
 @mcp_server.tool()
 async def search_codebase(query: str, limit: int = 3) -> str:

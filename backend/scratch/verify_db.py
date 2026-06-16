@@ -32,7 +32,7 @@ def verify_relationships_and_cascades():
         print("\nStep 1: Inserting test user and associated entities...")
         user = User(
             username="validation_test_user",
-            email="validation@codepilot.ai",
+            email="validation@knowdev.ai",
             clerk_id="user_clerk_val_999"
         )
         db.add(user)
