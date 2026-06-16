@@ -16,7 +16,7 @@
 
 | Dashboard Console | AI Chat Console | PR Review findings |
 |:---:|:---:|:---:|
-| ![Dashboard Console Mockup](<img width="1919" height="1079" alt="Image" src="https://github.com/user-attachments/assets/e22253e0-6a04-41f8-b22f-fbf847942efc" />) | ![AI Chat Console Mockup](<img width="1919" height="1079" alt="Image" src="https://github.com/user-attachments/assets/8856bc35-44b7-4d3d-beec-ebb11976a4e7" />) | ![PR Review Mockup](<img width="1919" height="1079" alt="Image" src="https://github.com/user-attachments/assets/4bde019c-67b4-43af-9696-56fb00146f53" />) |
+| ![Dashboard Console Mockup] <img width="1919" height="1079" alt="Image" src="https://github.com/user-attachments/assets/e22253e0-6a04-41f8-b22f-fbf847942efc" /> | ![AI Chat Console Mockup] <img width="1919" height="1079" alt="Image" src="https://github.com/user-attachments/assets/8856bc35-44b7-4d3d-beec-ebb11976a4e7" /> | ![PR Review Mockup] <img width="1919" height="1079" alt="Image" src="https://github.com/user-attachments/assets/4bde019c-67b4-43af-9696-56fb00146f53" /> |
 
 ---
 
