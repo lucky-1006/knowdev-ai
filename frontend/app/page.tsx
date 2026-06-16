@@ -69,7 +69,9 @@ export default function LandingPage() {
       {/* Header */}
       <header className="sticky top-0 z-50 glass-panel border-b border-border/40 py-4 px-6 md:px-12 flex justify-between items-center">
         <div className="flex items-center gap-2 font-bold text-xl tracking-tight">
-          <Terminal className="w-6 h-6 text-primary animate-pulse" />
+          <span suppressHydrationWarning className="inline-flex">
+            <Terminal className="w-6 h-6 text-primary animate-pulse" />
+          </span>
           <span>knowDev <span className="text-primary font-extrabold bg-gradient-to-r from-primary to-purple-500 bg-clip-text text-transparent">AI</span></span>
         </div>
         
@@ -79,7 +81,9 @@ export default function LandingPage() {
             className="p-2.5 rounded-full border border-border/50 hover:bg-muted/50 transition-all duration-300"
             aria-label="Toggle Theme"
           >
-            {theme === "dark" ? <Sun className="w-5 h-5 text-amber-400" /> : <Moon className="w-5 h-5 text-slate-700" />}
+            <span suppressHydrationWarning className="inline-flex">
+              {theme === "dark" ? <Sun className="w-5 h-5 text-amber-400" /> : <Moon className="w-5 h-5 text-slate-700" />}
+            </span>
           </button>
           <Link href="/dashboard" className="px-5 py-2.5 rounded-full bg-primary text-primary-foreground font-semibold hover:opacity-90 hover:scale-105 shadow-md shadow-primary/20 transition-all duration-300">
             Launch Console
@@ -96,7 +100,9 @@ export default function LandingPage() {
           transition={{ duration: 0.8 }}
         >
           <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-primary/10 text-primary border border-primary/20 mb-6">
-            <Sparkles className="w-3.5 h-3.5" /> Next-Gen AI Engineer Workspace
+            <span suppressHydrationWarning className="inline-flex">
+              <Sparkles className="w-3.5 h-3.5" />
+            </span> Next-Gen AI Engineer Workspace
           </div>
           
           <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight leading-tight md:leading-none mb-6">
@@ -141,7 +147,9 @@ export default function LandingPage() {
               variants={itemVariants}
             >
               <div className="p-3 rounded-xl bg-card border border-border/40 shadow-inner">
-                {feature.icon}
+                <span suppressHydrationWarning className="inline-flex">
+                  {feature.icon}
+                </span>
               </div>
               <h3 className="text-xl font-bold">{feature.title}</h3>
               <p className="text-muted-foreground leading-relaxed text-sm md:text-base">{feature.desc}</p>
