@@ -20,15 +20,6 @@
 
 ---
 
-## 🚀 Live Demo
-
-Explore the hosted environments or view live deployments:
-* **Web Console**: [https://demo.knowdev.ai](https://demo.knowdev.ai)
-* **Backend API Documentation**: [https://api.knowdev.ai/docs](https://api.knowdev.ai/docs)
-* **MCP SSE Hub**: [https://mcp.knowdev.ai/mcp/sse](https://mcp.knowdev.ai/mcp/sse)
-
----
-
 ## ✨ Features
 
 | Feature | Description | Status |
@@ -176,22 +167,68 @@ Create `.env` inside `backend/` and `.env.local` inside `frontend/`.
 
 ## 🏃 Running Locally
 
-### 1. Start the Backend API
+To run the application locally on your machine, you can launch the services either individually or using Docker Compose.
+
+### Method A: Running Services Individually (Recommended for development)
+
+#### 1. Start Qdrant in Memory (Default Setup)
+* By default, the backend's `QDRANT_HOST` is configured to `memory`. This will boot an in-memory vector database and automatically store indexes inside `backend/qdrant_db/` on disk. No external Qdrant running instance is needed.
+
+#### 2. Start the Backend API Server
+1. Navigate to the `backend/` directory:
+   ```bash
+   cd backend
+   ```
+2. Activate your virtual environment and run the startup script:
+   ```bash
+   # Windows:
+   .\venv\Scripts\Activate.ps1
+   # Linux/macOS:
+   source venv/bin/activate
+
+   # Start the FastAPI server:
+   python main.py
+   ```
+* The backend API server will boot on `http://127.0.0.1:8000`.
+* Verify that it is running by visiting the interactive Swagger API docs at `http://127.0.0.1:8000/docs`.
+
+#### 3. Initialize & Seed Relational Tables
+In a separate terminal (with the backend virtual environment active), run the database seeder to populate mock repositories, users, and PR reviews:
 ```bash
 cd backend
-# Make sure virtualenv is active
-python main.py
+python app/db/seed.py
 ```
-* The API server will boot on `http://127.0.0.1:8000`
-* View interactive API documentation (Swagger UI) at `http://127.0.0.1:8000/docs`
 
-### 2. Start the Frontend UI
-```bash
-cd frontend
-npm run dev
-```
-* The user interface will start on `http://localhost:3000`
-* Login using developer bypass by inputting `developer` as username (password optional).
+#### 4. Start the Frontend UI Console
+1. Navigate to the `frontend/` directory:
+   ```bash
+   cd frontend
+   ```
+2. Launch the Next.js development server:
+   ```bash
+   npm run dev
+   ```
+* The Next.js web application interface will start on `http://localhost:3000`.
+* Open `http://localhost:3000` in your web browser.
+* **Authentication Bypass**: At the login screen, enter `developer` in the Username input field (the Password field can be left blank or set to any value) and click **Sign In with Development Mode** to enter the workspace dashboard.
+
+---
+
+### Method B: Launching the Entire Stack via Docker Compose
+To compile and orchestrate PostgreSQL, Qdrant Server, Backend API, and Next.js Frontend together:
+
+1. Spin up the containers:
+   ```bash
+   docker-compose up --build
+   ```
+2. Once the build completes, the services are available at:
+   * **Frontend UI Dashboard**: `http://localhost:3000`
+   * **Backend REST API / Docs**: `http://localhost:8000/docs`
+   * **Qdrant Dashboard Console**: `http://localhost:6333/dashboard`
+3. Stop the containers:
+   ```bash
+   docker-compose down -v
+   ```
 
 ---
 
@@ -288,24 +325,6 @@ npm run test
 # Run Playwright E2E Tests
 npm run test:e2e
 ```
-
----
-
-## 🌐 Deployment
-
-### Frontend (Vercel)
-Deploy your frontend app to Vercel with one command:
-```bash
-cd frontend
-vercel --prod
-```
-Ensure you configure environment variables `NEXTAUTH_URL`, `NEXTAUTH_SECRET`, and `JWT_SECRET` in the Vercel Dashboard.
-
-### Backend (Render / VPS)
-You can deploy the backend using the supplied Dockerfile:
-* Set up a PostgreSQL instance (e.g. AWS RDS or Supabase).
-* Set up a Qdrant Cloud instance or host a Docker container.
-* Configure `ENV_MODE=production` and deploy using Render or your VPS container registry.
 
 ---
 
