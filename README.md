@@ -1,0 +1,329 @@
+# knowDev AI
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.110.0-009688.svg?style=flat&logo=FastAPI&logoColor=white)](https://fastapi.tiangolo.com)
+[![Next.js](https://img.shields.io/badge/Next.js-16.2.9-black.svg?style=flat&logo=Next.js&logoColor=white)](https://nextjs.org)
+[![PyTorch](https://img.shields.io/badge/PyTorch-2.2.0-EE4C2C.svg?style=flat&logo=PyTorch&logoColor=white)](https://pytorch.org)
+[![Qdrant](https://img.shields.io/badge/Qdrant-Vector--DB-red.svg?style=flat&logo=qdrant)](https://qdrant.tech)
+
+**knowDev AI** is a premium, developer-centric, self-hosted AI Software Engineering Assistant. It analyzes codebases, generates boilerplate, performs semantic RAG search over code files, reviews pull requests, and automates technical documentation. By leveraging local CPU-optimized PyTorch models and a vector search engine, knowDev AI provides secure, offline-capable code intelligence directly in your environment.
+
+---
+
+## 📸 Screenshots
+
+*Placeholders for user interface demonstrations:*
+
+| Dashboard Console | AI Chat Console | PR Review findings |
+|:---:|:---:|:---:|
+| ![Dashboard Console Mockup](https://raw.githubusercontent.com/username/repository/main/assets/dashboard_mockup.png) | ![AI Chat Console Mockup](https://raw.githubusercontent.com/username/repository/main/assets/chat_mockup.png) | ![PR Review Mockup](https://raw.githubusercontent.com/username/repository/main/assets/review_mockup.png) |
+
+---
+
+## 🚀 Live Demo
+
+Explore the hosted environments or view live deployments:
+* **Web Console**: [https://demo.knowdev.ai](https://demo.knowdev.ai)
+* **Backend API Documentation**: [https://api.knowdev.ai/docs](https://api.knowdev.ai/docs)
+* **MCP SSE Hub**: [https://mcp.knowdev.ai/mcp/sse](https://mcp.knowdev.ai/mcp/sse)
+
+---
+
+## ✨ Features
+
+| Feature | Description | Status |
+|:---|:---|:---:|
+| **Repository Analysis** | Scans codebases recursively, calculates complexity, test coverage, and documentation metrics. | ✅ |
+| **AI Code Generation** | Synthesizes boilerplate, API routes, and functions using local or cloud LLMs. | ✅ |
+| **PR Review & Audit** | Reviews pull request diffs for SQL Injection, exposed keys, performance issues, and code smells. | ✅ |
+| **Documentation Generator** | Auto-generates READMEs, API guides, and db relation structures with one click. | ✅ |
+| **RAG Knowledge Base** | Chunks files and indexes them in Qdrant Vector database for context-aware developer queries. | ✅ |
+| **MCP Integration** | Implements the Model Context Protocol (FastMCP) supporting external IDE clients (Cursor, Windsurf). | ✅ |
+| **Interactive Console** | Implements responsive UI dashboard featuring themes, search palettes, and inline terminals. | ✅ |
+
+---
+
+## 🏗️ Architecture
+
+knowDev AI follows a decoupled microservices-inspired architecture optimized for low-latency local execution.
+
+```mermaid
+graph TD
+    Client["Next.js Web Frontend (Port 3000)"]
+    FastAPI["FastAPI Main Server (Port 8000)"]
+    PostgreSQL["PostgreSQL Relational DB (Port 5432)"]
+    Qdrant["Qdrant Vector DB (Port 6333)"]
+    GithubAPI["GitHub REST API"]
+    LocalLLM["PyTorch CPU Inference (Qwen-Coder)"]
+    SentenceTrans["SentenceTransformer Embeddings"]
+
+    Client -->|REST API Requests| FastAPI
+    Client -->|NextAuth Credentials/OAuth| ClientAuth["OAuth Hub (GitHub/Google)"]
+    FastAPI -->|Relational Data| PostgreSQL
+    FastAPI -->|Semantic Search| Qdrant
+    FastAPI -->|Fetch Repos & PR Diff| GithubAPI
+    FastAPI -->|Local Code Generation| LocalLLM
+    FastAPI -->|Vectorize Code Chunks| SentenceTrans
+```
+
+---
+
+## 🛠️ Tech Stack
+
+* **Frontend**: Next.js 16.2.9, React 19.2.4, TypeScript, Tailwind CSS v4, Lucide Icons, Framer Motion.
+* **Backend**: FastAPI 0.110.0, Uvicorn, SQLAlchemy 2.0, Pydantic v2, FastMCP (SSE Transport).
+* **AI Engine**: PyTorch, Hugging Face Transformers (`Qwen/Qwen2.5-Coder-0.5B-Instruct`), Sentence Transformers (`all-MiniLM-L6-v2`).
+* **Database**: PostgreSQL (relational storage), Qdrant (semantic vector database).
+* **DevOps**: Docker, Docker Compose, GitHub Actions (CI/CD Pipeline).
+
+---
+
+## 📂 Folder Structure
+
+```
+.
+├── .github/
+│   └── workflows/
+│       └── ci-cd.yml             # Github Actions CI/CD pipeline
+├── backend/
+│   ├── app/
+│   │   ├── api/                  # API routers (auth, chat, code, docs, pr, repo, search)
+│   │   ├── db/                   # Database sessions and migrations
+│   │   ├── models/               # SQLAlchemy SQL models
+│   │   ├── services/             # Core service logic (AI, GitHub, PR, RAG, Docs)
+│   │   ├── config.py             # Environment configurations
+│   │   └── mcp_server.py         # FastMCP Server definition
+│   ├── tests/                    # Pytest backend test suite
+│   ├── Dockerfile                # Python container setup
+│   ├── main.py                   # FastAPI entrypoint
+│   └── requirements.txt          # Python dependencies
+├── docs/                         # Detailed architecture, API & deployment guides
+├── frontend/
+│   ├── app/                      # Next.js pages, layouts, and route handlers
+│   ├── components/               # Shareable UI components (AISidebar, CommandPalette)
+│   ├── lib/                      # Next.js helper library (API Fetch client)
+│   ├── __tests__/                # Frontend unit/component jest tests
+│   ├── Dockerfile                # Node container setup
+│   └── package.json              # Frontend node packages
+├── docker-compose.yml            # Multi-container local orchestration
+└── LICENSE                       # MIT License file
+```
+
+---
+
+## 📥 Installation
+
+Ensure you have [Python 3.11+](https://python.org), [Node.js 20+](https://nodejs.org), and [Docker](https://docker.com) installed.
+
+### Windows (PowerShell)
+```powershell
+# Clone the repository
+git clone https://github.com/username/knowdev-ai.git
+cd knowdev-ai
+
+# Set up virtual environment
+cd backend
+python -m venv venv
+.\venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+
+# Set up frontend
+cd ../frontend
+npm install --legacy-peer-deps
+```
+
+### Linux (Bash) / macOS
+```bash
+# Clone the repository
+git clone https://github.com/username/knowdev-ai.git
+cd knowdev-ai
+
+# Set up virtual environment
+cd backend
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+
+# Set up frontend
+cd ../frontend
+npm install --legacy-peer-deps
+```
+
+---
+
+## ⚙️ Environment Variables
+
+Create `.env` inside `backend/` and `.env.local` inside `frontend/`.
+
+### Backend Environment (`backend/.env`)
+| Key | Type | Description | Default |
+|:---|:---|:---|:---|
+| `ENV_MODE` | String | Environment mode (`development` or `production`) | `development` |
+| `DATABASE_URL` | String | Database connection string | `sqlite:///./codepilot.db` |
+| `JWT_SECRET` | String | Token signing key | `codepilot_secret_12345_dev` |
+| `GITHUB_TOKEN` | String | GitHub Personal Access Token (for API scans) | *None* |
+| `QDRANT_HOST` | String | Qdrant client host (`memory` or hostname) | `memory` |
+| `LOCAL_INFERENCE`| Boolean| Enables local PyTorch model inference | `false` |
+
+### Frontend Environment (`frontend/.env.local`)
+| Key | Type | Description | Default |
+|:---|:---|:---|:---|
+| `NEXTAUTH_URL` | String | Application base URL | `http://localhost:3000` |
+| `NEXTAUTH_SECRET`| String | Session encryption secret | `nextauth_dev_secret_key_1234567890` |
+| `JWT_SECRET` | String | Matches the backend JWT secret | `codepilot_secret_12345_dev` |
+
+---
+
+## 🏃 Running Locally
+
+### 1. Start the Backend API
+```bash
+cd backend
+# Make sure virtualenv is active
+python main.py
+```
+* The API server will boot on `http://127.0.0.1:8000`
+* View interactive API documentation (Swagger UI) at `http://127.0.0.1:8000/docs`
+
+### 2. Start the Frontend UI
+```bash
+cd frontend
+npm run dev
+```
+* The user interface will start on `http://localhost:3000`
+* Login using developer bypass by inputting `developer` as username (password optional).
+
+---
+
+## 🐳 Docker Setup
+
+Spin up the entire stack (PostgreSQL, Qdrant, Backend, and Frontend) in seconds:
+
+```bash
+# Build and run all services
+docker-compose up --build
+
+# Run in background (detached mode)
+docker-compose up -d
+
+# Stop and remove all volumes
+docker-compose down -v
+```
+
+---
+
+## 🔌 API Documentation
+
+Detailed Swagger UI documentation is available at `/docs` when running the server. Key endpoints:
+
+* **Authentication**:
+  * `GET /api/auth/me` - Fetch authenticated user details.
+* **Repositories**:
+  * `POST /api/repo/analyze` - Perform metadata scans and analyze code health.
+  * `POST /api/repo/index` - Chunk repository files and push vector index to Qdrant.
+  * `GET /api/repo/list` - List registered repositories for the current user.
+* **AI Chat**:
+  * `POST /api/chat` - Interact with the assistant using RAG contextual prompts.
+  * `GET /api/chat/history` - Fetch user message logs.
+* **PR Review**:
+  * `POST /api/pr/review` - Review a GitHub PR URL and save findings.
+  * `GET /api/pr/review` - Fetch review list for a specific PR URL.
+* **Developer Tools**:
+  * `POST /api/code/generate` - Generate source code scripts.
+  * `POST /api/code/commit-message` - Generate a semantic commit message from a git diff.
+  * `POST /api/code/sprint-plan` - Structure sprint roadmaps and estimations.
+  * `POST /api/code/scan-dependencies` - Scan dependencies list for known vulnerabilities.
+  * `POST /api/code/architecture` - Generate a Mermaid architecture diagram block.
+
+---
+
+## 🧠 RAG Pipeline
+
+knowDev AI integrates a custom, high-speed Retrieval-Augmented Generation (RAG) pipeline to contextualize AI responses with your codebase:
+
+1. **Repository Indexing**: Code files are fetched and split into manageable character units (default `1000` character chunks with `150` characters overlap).
+2. **Context Injection**: Each chunk is prepended with path header context `File: <file_path>\nChunk: <chunk_index>`.
+3. **Embedding Generation**: Vector embeddings are calculated via the local SentenceTransformer model `all-MiniLM-L6-v2` (dimension size 384).
+4. **Vector Storage**: Embeddings are upserted into Qdrant in batches, filtered and queried using Cosine similarity.
+5. **Contextual Generation**: When you query the AI, the engine retrieves matching code snippets and merges them into the system prompt before passing them to the causal LLM.
+
+---
+
+## 🔌 Model Context Protocol (MCP) Integration
+
+knowDev AI implements an active **Model Context Protocol (FastMCP)** server running on SSE transport at `http://127.0.0.1:8000/mcp`. You can connect external IDEs (like Cursor, Windsurf, or VS Code MCP Extensions) to leverage codebase metrics:
+
+### Config for Cursor IDE (`~/.codeium/config.json` or Cursor Settings):
+Add a new MCP server:
+* **Name**: knowDev AI
+* **Type**: `sse`
+* **URL**: `http://127.0.0.1:8000/mcp/sse`
+
+---
+
+## 🔒 Security Considerations
+
+* **Local Inference**: All model inference (code generation and embeddings) can run entirely local on CPU to prevent codebase leaks to external API providers.
+* **Token Storage**: Credentials and tokens (like `GITHUB_TOKEN` and JWT signing keys) must be managed in backend environment files (`.env`) and never exposed in frontend files.
+* **Parameterized Queries**: Relational database operations utilize SQLAlchemy ORM parameterized structures to prevent SQL Injection.
+* **API Routing Isolation**: All dashboard paths are protected by NextAuth middleware, enforcing active session validations.
+
+---
+
+## 🧪 Testing
+
+### Backend Unit Tests
+Run the pytest test suite to verify endpoints and database models:
+```bash
+cd backend
+pytest tests/
+```
+
+### Frontend Unit & E2E Tests
+Run component unit tests and playwright integration tests:
+```bash
+cd frontend
+# Run Jest Unit Tests
+npm run test
+# Run Playwright E2E Tests
+npm run test:e2e
+```
+
+---
+
+## 🌐 Deployment
+
+### Frontend (Vercel)
+Deploy your frontend app to Vercel with one command:
+```bash
+cd frontend
+vercel --prod
+```
+Ensure you configure environment variables `NEXTAUTH_URL`, `NEXTAUTH_SECRET`, and `JWT_SECRET` in the Vercel Dashboard.
+
+### Backend (Render / VPS)
+You can deploy the backend using the supplied Dockerfile:
+* Set up a PostgreSQL instance (e.g. AWS RDS or Supabase).
+* Set up a Qdrant Cloud instance or host a Docker container.
+* Configure `ENV_MODE=production` and deploy using Render or your VPS container registry.
+
+---
+
+## 🗺️ Future Roadmap
+
+* [ ] **Multi-Model Support**: Support integrations for external LLM API providers (OpenAI, Anthropic, Gemini).
+* [ ] **Automated Fix Execution**: Allow the AI to directly commit proposed code changes and refactoring PR findings.
+* [ ] **Agentic Pipelines**: Build autonomous agents capable of resolving GitHub issues directly.
+* [ ] **AST-Aware Chunking**: Improve RAG search relevance using Abstract Syntax Trees to chunk files by functional boundaries.
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Please read the [Contributing Guide](file:///c:/Users/STAR/Documents/CodeEngine/CONTRIBUTING.md) to understand development branching, issues tracking, and style guides.
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](file:///c:/Users/STAR/Documents/CodeEngine/LICENSE) file for details.
