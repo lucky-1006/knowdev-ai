@@ -4,7 +4,7 @@ import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import jwt from "jsonwebtoken";
 
-const JWT_SECRET = process.env.JWT_SECRET || "codepilot_secret_12345_dev";
+const JWT_SECRET = process.env.JWT_SECRET || "knowdev_secret_12345_dev";
 
 export const authOptions: NextAuthOptions = {
   providers: [
